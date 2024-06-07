@@ -47,7 +47,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/386,linux/arm64,linux/amd64,linux/arm/v6,linux/arm/v7 # 你准备构建的镜像平台
+        platforms: linux/arm64,linux/amd64 # 你准备构建的镜像平台
         push: true
         tags: ghcr.io/qd-today/qd:latest,docker.io/qdtoday/qd:${{ env.version }}
         cache-from: type=gha
