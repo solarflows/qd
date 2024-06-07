@@ -23,7 +23,10 @@ RUN sed -i 's/mirrors.ustc.edu.cn/dl-cdn.alpinelinux.org/g' /etc/apk/repositorie
     yes | cp -rf /gitclone_tmp/. /usr/src/app && \
     rm -rf /gitclone_tmp && \
     chmod +x /usr/src/app/update.sh && \
+    mkdir -vp /usr/src/app/config && \
+    mkdir -vp /config/qdtoday && \
     ln -s /usr/src/app/update.sh /bin/update && \
+    ln -s /usr/src/app/config /config/qdtoday &&\
     apk add --update --no-cache python3 py3-six py3-markupsafe py3-pycryptodome py3-tornado \
         py3-wrapt py3-packaging py3-greenlet py3-urllib3 py3-cryptography py3-aiosignal \
         py3-async-timeout py3-attrs py3-frozenlist py3-multidict py3-charset-normalizer \
@@ -68,6 +71,6 @@ EXPOSE $PORT/tcp
 ENV TZ=CST-8
 
 # 添加挂载点
-VOLUME ["/usr/src/app/config"]
+VOLUME ["/config/qdtoday"]
 
 CMD ["sh","-c","python /usr/src/app/run.py"]

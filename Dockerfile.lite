@@ -23,7 +23,10 @@ RUN sed -i 's/mirrors.ustc.edu.cn/dl-cdn.alpinelinux.org/g' /etc/apk/repositorie
     yes | cp -rf /gitclone_tmp/. /usr/src/app && \
     rm -rf /gitclone_tmp && \
     chmod +x /usr/src/app/update.sh && \
+    mkdir -vp /usr/src/app/config && \
+    mkdir -vp /config/qdtoday && \
     ln -s /usr/src/app/update.sh /bin/update && \
+    ln -s /usr/src/app/config /config/qdtoday &&\
     apk add --no-cache --virtual .build_deps nano cmake make perl autoconf g++ automake \
         linux-headers libtool util-linux python3-dev py3-pip py3-setuptools py3-wheel && \
     sed -i '/ddddocr/d' requirements.txt && \
@@ -62,6 +65,6 @@ ENV QIANDAO_LITE=True
 ENV TZ=CST-8
 
 # 添加挂载点
-VOLUME ["/usr/src/app/config"]
+VOLUME ["/config/qdtoday"]
 
 CMD ["sh","-c","python /usr/src/app/run.py"]

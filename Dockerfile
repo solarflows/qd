@@ -2,11 +2,9 @@
 FROM a76yyyy/pycurl:latest
 
 # 维护者信息
-LABEL maintainer "a76yyyy <q981331502@163.com>"
-LABEL org.opencontainers.image.source=https://github.com/qd-today/qd
+LABEL maintainer "husky"
+LABEL org.opencontainers.image.source=https://github.com/solarflows/qd
 
-ADD ssh/qd_fetch /root/.ssh/id_rsa
-ADD ssh/qd_fetch.pub /root/.ssh/id_rsa.pub
 WORKDIR /usr/src/app
 
 # QD && Pip install modules
@@ -20,7 +18,10 @@ RUN sed -i 's/mirrors.ustc.edu.cn/dl-cdn.alpinelinux.org/g' /etc/apk/repositorie
     yes | cp -rf /gitclone_tmp/. /usr/src/app && \
     rm -rf /gitclone_tmp && \
     chmod +x /usr/src/app/update.sh && \
+    mkdir -vp /usr/src/app/config && \
+    mkdir -vp /config/qdtoday && \
     ln -s /usr/src/app/update.sh /bin/update && \
+    ln -s /usr/src/app/config /config/qdtoday &&\
     apk add --update --no-cache openssh-client python3 py3-six \
     py3-markupsafe py3-pycryptodome py3-tornado py3-wrapt \
     py3-packaging py3-greenlet py3-urllib3 py3-cryptography \
@@ -68,6 +69,6 @@ EXPOSE $PORT/tcp
 ENV TZ=CST-8
 
 # 添加挂载点
-VOLUME ["/usr/src/app/config"]
+VOLUME ["/config/qdtoday"]
 
 CMD ["sh","-c","python /usr/src/app/run.py"]
