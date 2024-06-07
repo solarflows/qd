@@ -60,6 +60,7 @@ RUN sed -i 's/mirrors.ustc.edu.cn/dl-cdn.alpinelinux.org/g' /etc/apk/repositorie
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
     rm -rf /var/cache/apk/* && \
     rm -rf /usr/share/man/*
+    ln -s /usr/src/app/config /config/qdtoday
 
 ENV PORT 80
 EXPOSE $PORT/tcp
@@ -68,6 +69,6 @@ EXPOSE $PORT/tcp
 ENV TZ=CST-8
 
 # 添加挂载点
-VOLUME ["/usr/src/app/config"]
+VOLUME ["/config/qdtoday"]
 
 CMD ["sh","-c","python /usr/src/app/run.py"]
