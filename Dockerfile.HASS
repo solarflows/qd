@@ -1,0 +1,15 @@
+# 设置基础镜像
+FROM ghcr.io/qd-today/qd:latest
+
+# 设置维护者信息
+LABEL maintainer "husky"
+LABEL org.opencontainers.image.source=https://github.com/solarflows/qd
+
+# 设置工作目录
+WORKDIR /usr/src/app
+
+# 修改代码
+RUN sed -i "s|path = os.path.join(os.path.dirname(__file__), 'config', 'database.db')|path = os.path.join('/config/qdtoday', 'database.db')|g" /usr/src/app/config.py
+
+# 添加挂载点
+VOLUME ["/config"]
